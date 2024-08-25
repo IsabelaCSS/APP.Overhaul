@@ -28,55 +28,80 @@ class HomePage extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: -60,
+            top: - 40,
             left: 0,
             right: 0,
             child: Align(
-              alignment: Alignment.center, // Centraliza a imagem horizontalmente
+              alignment: Alignment.center,
               child: Container(
-                height: 250, // Altura ajustada
-                width: 200,  // Largura ajustada
+                height: 250,
+                width: 200,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('img/logo.png'),
-                    fit: BoxFit.contain, // Mantém a proporção da imagem
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
           ),
-          // Adiciona a barra de pesquisa abaixo da imagem
+          // Barra de pesquisa
           Positioned(
-            top: 100, // Posição logo abaixo da imagem
-            left: 10,
-            right: 10,
+            top: 120, // Posiciona a barra de pesquisa abaixo da logo
+            left: 16,
+            right: 16,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4.0,
-                    offset: const Offset(0, 5),
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 7),
                   ),
                 ],
               ),
-              child: const Row(
-               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.pink,
-                      size: 24.0,
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Pesquisar',
+                  prefixIcon: Icon(Icons.search, color: Colors.grey),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(vertical: 15),
+                  hintStyle: TextStyle(color: Colors.grey),
                 ),
-                ],
               ),
             ),
           ),
-      ],
-    ),
-    ); 
+          // Texto abaixo da barra de pesquisa
+          Positioned(
+            top: 200,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: const Text(
+                'Marcas parceiras',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 69, 69, 69),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 200, // Posiciona a barra de pesquisa abaixo da logo
+            left: 16,
+            right: 16,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                  ),
+            ),
+           ),
+        ],
+      ),
+    );
   }
 }
