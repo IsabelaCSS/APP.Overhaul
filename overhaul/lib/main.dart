@@ -106,31 +106,51 @@ class HomePage extends StatelessWidget {
             ),
           ),
         
-          Positioned( //divisão para os produtos
+         // Divisão para os produtos
+          Positioned(
             top: 380,
             left: 0,
             right: 0,
             child: Container(
               height: 900,
-               decoration: const BoxDecoration(// Altura da divisão
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(40)), // Bordas arredondadas no topo
-               ),
-            ),
-          ),
-           const Positioned(
-            top: 415,
-            left: 45,
-            right: 0,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Mais Vendidos',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontFamily: 'Poppins',
-
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(40)), // Bordas arredondadas no topo
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Mais Vendidos',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: GridView.builder(
+                        itemCount: 10, // número de cards que você quer mostrar
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // duas colunas
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          childAspectRatio: 0.75, // proporção do card
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return ProductCard(
+                            imagePath: 'img/logo.png', // Substitua pelo caminho da sua imagem
+                            productName: 'Renault Kwid',
+                            price: 'R\$45.000',
+                            rating: 4.5,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -167,6 +187,59 @@ class BrandIcon extends StatelessWidget {
       radius: 60,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       backgroundImage: AssetImage(imagePath),
+    );
+  }
+}
+
+class ProductCard extends StatelessWidget {
+  final String imagePath;
+  final String productName;
+  final String price;
+  final double rating;
+
+  const ProductCard({
+    super.key,
+    required this.imagePath,
+    required this.productName,
+    required this.price,
+    required this.rating,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(imagePath, fit: BoxFit.contain, height: 180, width: double.infinity),
+            const SizedBox(height: 10),
+            Text(
+              productName,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              price,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Icon(Icons.star, color: Colors.yellow[700], size: 18),
+                Text(
+                  '$rating',
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
