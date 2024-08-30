@@ -25,78 +25,64 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: -55,
-            left: 0,
-            right: 0,
-            child: Align(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Logo
+            Align(
               alignment: Alignment.center,
               child: Container(
-                height: 250,
-                width: 200,
+                width: 140,
+                height: 120, // Reduzi a altura da logo
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('img/logo.png'),
-                    fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
-          ),
-          // Barra de pesquisa
-          Positioned(
-            top: 120, // Posiciona a barra de pesquisa abaixo da logo
-            left: 16,
-            right: 16,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 10,
-                    offset: const Offset(0, 7),
+            // Espaço entre a logo e a barra de pesquisa
+            const SizedBox(height: 0), // Menor espaçamento entre a logo e a barra de pesquisa
+            // Barra de pesquisa
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Pesquisar',
+                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 15),
+                    hintStyle: TextStyle(color: Colors.grey),
                   ),
-                ],
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Pesquisar',
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 15),
-                  hintStyle: TextStyle(color: Colors.grey),
                 ),
               ),
             ),
-          ),
-          // Texto abaixo da barra de pesquisa
-          const Positioned(
-            top: 200,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Marcas parceiras',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 69, 69, 69),
-                ),
+            // Texto abaixo da barra de pesquisa
+            const SizedBox(height: 30),
+            const Text(
+              'Marcas parceiras',
+              style: TextStyle(
+                fontSize: 16,
+                color: Color.fromARGB(255, 69, 69, 69),
               ),
             ),
-          ),
-          const Positioned(
-            top: 210,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.all(30.0),
+            const SizedBox(height: 0),
+            const Padding(
+              padding: EdgeInsets.all(10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BrandIcon('img/logo.png'),
                   BrandIcon('img/logo.png'),
@@ -104,44 +90,57 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        
-         // Divisão para os produtos
-          Positioned(
-            top: 380,
-            left: 0,
-            right: 0,
-            child: Container(
+            // Divisão para os produtos
+            Container(
               height: 900,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(40)), // Bordas arredondadas no topo
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+               child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Mais Vendidos',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontFamily: 'Poppins',
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Mais Vendidos',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            // Ação ao clicar no "Ver Tudo"
+                          },
+                          child: const Text(
+                            'Ver Tudo',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 56, 56, 56),
+                              
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
-                    Expanded(
+                    SizedBox(
+                      height: 800, // Defini uma altura específica para o GridView
                       child: GridView.builder(
-                        itemCount: 10, // número de cards que você quer mostrar
+                        itemCount: 4, // número de cards que você quer mostrar
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, // duas colunas
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 70,
+                          crossAxisSpacing: 5,
                           childAspectRatio: 0.75, // proporção do card
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return ProductCard(
+                          return const ProductCard(
                             imagePath: 'img/logo.png', // Substitua pelo caminho da sua imagem
                             productName: 'Renault Kwid',
                             price: 'R\$45.000',
@@ -154,27 +153,71 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          const Positioned(
-            top: 420,
-            left: 0,
-            right: 45,
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'Ver Tudo',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 56, 56, 56),
-                ),
+           Container(
+              color: Colors.black,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30.0),
+                child: Column(
+                  children: [
+                  Text(
+                    'OVERHAUL',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center, 
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Faça uma visita',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center, 
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Fale Conosco',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    'overhaul@gmail.com\n(11) 3675-5436',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center, 
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+           ),
+          ],
+        ),
       ),
     );
   }
 }
+
 
 class BrandIcon extends StatelessWidget {
   final String imagePath;
