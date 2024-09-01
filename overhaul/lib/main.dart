@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             // Espaço entre a logo e a barra de pesquisa
-            const SizedBox(height: 0), // Menor espaçamento entre a logo e a barra de pesquisa
+            const SizedBox(height: 0), // Espaçamento adequado
             // Barra de pesquisa
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -78,9 +78,9 @@ class HomePage extends StatelessWidget {
                 color: Color.fromARGB(255, 69, 69, 69),
               ),
             ),
-            const SizedBox(height: 0),
+            const SizedBox(height: 20), // Espaçamento adequado
             const Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -90,22 +90,22 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 30), // Espaçamento adequado entre os blocos
             // Divisão para os produtos
             Container(
-              height: 900,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(40)), // Bordas arredondadas no topo
               ),
-               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(30.0),
+                        child: Text(
                           'Mais Vendidos',
                           style: TextStyle(
                             fontSize: 20,
@@ -113,111 +113,164 @@ class HomePage extends StatelessWidget {
                             fontFamily: 'Poppins',
                           ),
                         ),
-                        GestureDetector(
+                      ),
+                      GestureDetector(
                           onTap: () {
-                            // Ação ao clicar no "Ver Tudo"
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const Vertudo()),
+                            );
                           },
-                          child: const Text(
+                        child: const Padding(
+                          padding: EdgeInsets.all(30.0),
+                          child: Text(
                             'Ver Tudo',
                             style: TextStyle(
                               fontSize: 16,
                               color: Color.fromARGB(255, 56, 56, 56),
-                              
                             ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: GridView.count(
+                      shrinkWrap: true, // Evita o scroll dentro do GridView
+                      crossAxisCount: 2, // Duas colunas
+                      mainAxisSpacing: 10, // Espaçamento vertical entre os itens
+                      crossAxisSpacing: 10, // Espaçamento horizontal entre os itens
+                      childAspectRatio: 0.75, // Proporção do card
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProductPage1()),
+                            );
+                          },
+                          child: const ProductCard(
+                            imagePath: 'img/logo.png',
+                            productName: 'Renault Kwid',
+                            price: 'R\$45.000',
+                            rating: 4.5,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProductPage2()),
+                            );
+                          },
+                          child: const ProductCard(
+                            imagePath: 'img/logo.png',
+                            productName: 'Volkswagen Polo',
+                            price: 'R\$55.000',
+                            rating: 4.7,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProductPage3()),
+                            );
+                          },
+                          child: const ProductCard(
+                            imagePath: 'img/logo.png',
+                            productName: 'Fiat Argo',
+                            price: 'R\$50.000',
+                            rating: 4.6,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProductPage4()),
+                            );
+                          },
+                          child: const ProductCard(
+                            imagePath: 'img/logo.png',
+                            productName: 'Ford Ka',
+                            price: 'R\$48.000',
+                            rating: 4.4,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 800, // Defini uma altura específica para o GridView
-                      child: GridView.builder(
-                        itemCount: 4, // número de cards que você quer mostrar
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // duas colunas
-                          mainAxisSpacing: 70,
-                          crossAxisSpacing: 5,
-                          childAspectRatio: 0.75, // proporção do card
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return const ProductCard(
-                            imagePath: 'img/logo.png', // Substitua pelo caminho da sua imagem
-                            productName: 'Renault Kwid',
-                            price: 'R\$45.000',
-                            rating: 4.5,
-                          );
-                        },
+                  ),
+                  const SizedBox(height: 20), // Espaçamento entre a grid e o rodapé
+                  Container(
+                    color: const Color.fromARGB(255, 11, 11, 11),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 35.0, vertical: 30.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'OVERHAUL',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Faça uma visita',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            'Avenida Giovanni Gronchi, 2967 - Morumbi, São Paulo - SP',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Fale Conosco',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            'overhaul@gmail.com\n(11) 3675-5436',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-           Container(
-              color: Colors.black,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30.0),
-                child: Column(
-                  children: [
-                  Text(
-                    'OVERHAUL',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center, 
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Faça uma visita',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center, 
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Fale Conosco',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    'overhaul@gmail.com\n(11) 3675-5436',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center, 
                   ),
                 ],
               ),
             ),
-           ),
           ],
         ),
       ),
     );
   }
 }
-
 
 class BrandIcon extends StatelessWidget {
   final String imagePath;
@@ -282,6 +335,87 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// Exemplo de tela de produto específica
+class ProductPage1 extends StatelessWidget {
+  const ProductPage1({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Renault Kwid'),
+      ),
+      body: const Center(
+        child: Text('Detalhes do Renault Kwid'),
+      ),
+    );
+  }
+}
+
+class ProductPage2 extends StatelessWidget {
+  const ProductPage2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Volkswagen Polo'),
+      ),
+      body: const Center(
+        child: Text('Detalhes do Volkswagen Polo'),
+      ),
+    );
+  }
+}
+
+class ProductPage3 extends StatelessWidget {
+  const ProductPage3({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Fiat Argo'),
+      ),
+      body: const Center(
+        child: Text('Detalhes do Fiat Argo'),
+      ),
+    );
+  }
+}
+
+class ProductPage4 extends StatelessWidget {
+  const ProductPage4({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ford Ka'),
+      ),
+      body: const Center(
+        child: Text('Detalhes do Ford Ka'),
+      ),
+    );
+  }
+}
+
+class Vertudo extends StatelessWidget {
+  const Vertudo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Carros'),
+      ),
+      body: const Center(
+        child: Text('Todos os carros disponiveis'),
       ),
     );
   }
